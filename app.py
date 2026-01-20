@@ -32,32 +32,33 @@ st.write(tips)
 
 job_desc= st.text_area(':red[Give your job description over here.]', max_chars=60000)
 if st.button("Submit"):
-    prompt=f'''
-    <Role> You are an expert in analyzing resume and matching it with the job description.
-    <Goal> Match the resume and the job description provided by the applicant.
-    <Context> The following content has been provided by the applicant:
-    * Resume: {file_text}'
-    * Job Description: {job_desc}
-    <Format> The report should follow these steps:
-    * Give a  brief description of the applicant in 3-5 lines.
-    * Describe in percentage what are the chances of this resume getting selected.
-    * Need not be exact percentage, you can give range of the match. 
-    * Give the expected ATS Score along with matching and non matching keywords.
-    * Perform SWOT Analysis and explain each parameter, i.e Strength, Weakness, Oppurtunities and Threat.
-    * give what all sections in the current resume are required to be changed in the current resume in  order to improve the ATS Score and selection percentage.
-    * Show both, current version and improved version of the section.
-    * Create 2 sample resume which can maximise the ATS Score
+    with st.spinner('Processing...'):
+        prompt=f'''
+        <Role> You are an expert in analyzing resume and matching it with the job description.
+        <Goal> Match the resume and the job description provided by the applicant.
+        <Context> The following content has been provided by the applicant:
+        * Resume: {file_text}'
+        * Job Description: {job_desc}
+        <Format> The report should follow these steps:
+        * Give a  brief description of the applicant in 3-5 lines.
+        * Describe in percentage what are the chances of this resume getting selected.
+        * Need not be exact percentage, you can give range of the match. 
+        * Give the expected ATS Score along with matching and non matching keywords.
+        * Perform SWOT Analysis and explain each parameter, i.e Strength, Weakness, Oppurtunities and Threat.
+        * give what all sections in the current resume are required to be changed in the current resume in  order to improve the ATS Score and selection percentage.
+        * Show both, current version and improved version of the section.
+        * Create 2 sample resume which can maximise the ATS Score
 
-    <Instructions>
-    * Use bullet points for explaination whenever possible.
-    * Create tables for descriptio where ever required.
-    * Strictly do not add any new skill in sample resume.
-    * The format of sample resume should be in such a way that they can be copied and pasted directly in word. 
-     '''
+        <Instructions>
+        * Use bullet points for explaination whenever possible.
+        * Create tables for descriptio where ever required.
+        * Strictly do not add any new skill in sample resume.
+        * The format of sample resume should be in such a way that they can be copied and pasted directly in word. 
+        '''
 
-# Now we create a submit button to run the application
+    # Now we create a submit button to run the application
 
 
-    response = model.invoke(prompt)
-    st.write(response.content)
+        response = model.invoke(prompt)
+        st.write(response.content)
 
